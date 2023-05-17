@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.wrapper {
+  padding: 0 20px;
+  margin: 0 auto;
+  width: 1200px;
+  font-family: "Roboto", sans-serif;
+}
+
+.header__container {
+  height: 80px;
+  background-color: #4c3484;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  align-items: center;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.header__search {
+  border: none;
+  height: 30px;
+  outline: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+.header__search-container {
+  display: block;
+  background-color: #fff;
+  width: 650px;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+
+.header__search-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #e2dbe4;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.header__current-loc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  height: 30px;
+  background-color: #00c9a5;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.header__current-loc-icon {
+  margin-right: 5px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.main__weather {
+  display: flex;
+  height: 300px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.main__weather-icon {
+  background-image: url("../assets/images/icons8-sun.svg");
+  display: block;
+  width: 240px;
+  height: 240px;
+  margin-left: 50px;
+}

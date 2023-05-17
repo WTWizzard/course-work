@@ -1,0 +1,7 @@
+.sky-gradient {
+  background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);
+}
+
+.sky-gradient-12 {
+  background: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%);
+}

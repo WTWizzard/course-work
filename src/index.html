@@ -4,36 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./reset.css" />
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <link rel="stylesheet" href="./styles/skyGradient.css" />
     <title>Курсова</title>
   </head>
   <body>
     <header class="header">
-      <div class="header__logo">
-        <p class="header__logo-text">Course-Weather</p>
+      <div class="wrapper">
+        <div class="header__container">
+          <label for="search" class="header__search-container">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              class="header__search"
+              placeholder="Write city..."
+            />
+            <i class="header__search-icon"> &#x1F50D; </i>
+          </label>
+          <div class="header__current-loc">
+            <i class="header__current-loc-icon"> &#128205; </i>
+            <p class="header__current-loc-text">Your Current Location</p>
+          </div>
+        </div>
       </div>
-      <nav class="header__navbar">
-        <ul class="header__navbar__menu">
-          <li class="header__navbar__menu-item">SomeThing</li>
-          <li class="header__navbar__menu-item">SomeThing</li>
-          <li class="header__navbar__menu-item">SomeThing</li>
-        </ul>
-      </nav>
     </header>
     <main class="main">
-        <div class="wrapper">
-            <div class="main__search">
-            
-            </div>
-            <section class="main__weather-card">
-                <span class="main__weather-card-icon"></span>
-                <div class="main__weather-card__data">
-                    <h1 class="main__weather-card__data-city"></h1>
-                    <p class=""></p>
-                </div>
-            </section>
-        </div>
+      <div class="wrapper">
+        <section class="main__weather sky-gradient">
+          <i class="main__weather-icon"></i>
+        </section>
+      </div>
     </main>
     <footer class="footer"></footer>
     <script src="./index.js"></script>
