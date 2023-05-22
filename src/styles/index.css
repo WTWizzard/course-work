@@ -3,6 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+hr{
+  background-color: #fff;
+  opacity: 0.5;
+  margin-bottom: 20px;
+}
+
 .wrapper {
   padding: 0 20px;
   margin: 0 auto;
@@ -105,10 +111,37 @@
   align-items: center;
   justify-content: space-between;
   color: #fff;
+  margin-bottom: 20px;
 }
 .main__wather-info-city-separator{
   font-weight: 300;
   font-size: 55px;
   opacity: 0.6;
   margin: 0 5px;
+}
+
+.main__weather-info-city-details{
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
+  font-weight: 300;
+  color: #fff;
+}
+.details {
+  margin-bottom: 5px;
+}
+
+.main__wather-info-city-pop{
+  display: flex;
+  align-items: center;
+}
+
+.main__weather-info-city-pop-i{
+  background-image: url("../assets/images/pop-icon.svg");
+  display: block;
+  width: 35px;
+  height: 35px;
+  margin: -5px;
 }
