@@ -31,6 +31,7 @@ hr{
 .header__search {
   border: none;
   height: 30px;
+  width: 100%;
   outline: none;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -128,6 +129,7 @@ hr{
   flex-direction: column;
   font-weight: 300;
   color: #fff;
+  transition: 0.4;
 }
 .details {
   margin-bottom: 5px;

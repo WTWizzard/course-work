@@ -19,17 +19,25 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
 
 
 const search = async () => {
-  const result = await getWeatherData(searchPanel.value, "UA");
+  const [city, countryCode] = searchPanel.value.split(",");
+  if(!countryCode){
+    alert("Please add country code after city name, and separate by comma");
+    return null;
+  }
+  const result = await getWeatherData(city, countryCode);
 
-    const tempElement = document.querySelector(".main__wather-info-city-temperature");
-    const cityNameElement = document.querySelector(".main__wather-info-city-name");
-    const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
-    const POPElement = document.querySelector(".main__wather-info-city-pop");
-    
-    cityNameElement.innerText = result.city.name;
-    tempElement.innerText = Math.ceil(result.list[0].main.temp);
-    windSpeedElement.innerText = `Wind speed: ${result.list[0].wind.speed} m/s`;
-    POPElement.innerText = result.list[0].pop * 100;
+  const tempElement = document.querySelector(".main__wather-info-city-temperature");
+  const cityNameElement = document.querySelector(".main__wather-info-city-name");
+  const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
+  const POPElement = document.querySelector(".main__wather-info-city-pop");
+  const POPIcon = document.createElement("i");
+  POPIcon.classList.add("main__weather-info-city-pop-i");
+
+  cityNameElement.innerText = result.city.name;
+  tempElement.innerText = Math.ceil(result.list[0].main.temp);
+  windSpeedElement.innerText = `Wind speed: ${result.list[0].wind.speed} m/s`;
+  POPElement.innerText = result.list[0].pop * 100;
+  POPElement.appendChild(POPIcon);
 }
 
 window.onload = async function () {
