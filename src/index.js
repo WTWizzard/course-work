@@ -17,14 +17,34 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
   return weatherData
 };
 
+const checkingCityName = (searchValue = "", responseValue) => {
+  let result;
 
-const search = async () => {
-  const [city, countryCode] = searchPanel.value.split(",");
-  if(!countryCode){
-    alert("Please add country code after city name, and separate by comma");
-    return null;
+  if (searchValue.toLocaleLowerCase() === responseValue.toLocaleLowerCase()) {
+    result = responseValue;
+    return result;
   }
-  const result = await getWeatherData(city, countryCode);
+  let lowerCaseValue = searchValue.toLowerCase()
+  let firstLetter = lowerCaseValue.charAt(0)
+  result = lowerCaseValue.replace(firstLetter, firstLetter.toUpperCase());
+
+  return result;
+}
+
+
+const search = async (onload = false) => {
+  let result;
+
+  if (onload) {
+    result = await getWeatherData();
+  } else {
+    const [city, countryCode] = searchPanel.value.split(",");
+    if (!countryCode) {
+      alert("Please add country code after city name, and separate by comma");
+      return null;
+    }
+    result = await getWeatherData(city, countryCode);
+  }
 
   const tempElement = document.querySelector(".main__wather-info-city-temperature");
   const cityNameElement = document.querySelector(".main__wather-info-city-name");
@@ -33,7 +53,7 @@ const search = async () => {
   const POPIcon = document.createElement("i");
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
-  cityNameElement.innerText = result.city.name;
+  cityNameElement.innerText = checkingCityName(searchPanel.value.split(",")[0], result.city.name);
   tempElement.innerText = Math.ceil(result.list[0].main.temp);
   windSpeedElement.innerText = `Wind speed: ${result.list[0].wind.speed} m/s`;
   POPElement.innerText = result.list[0].pop * 100;
