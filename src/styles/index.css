@@ -6,8 +6,8 @@
 .wrapper {
   padding: 0 20px;
   margin: 0 auto;
-  width: 1200px;
-  font-family: "Roboto", sans-serif;
+  max-width: 1200px;
+  font-family: "Jost", sans-serif;
 }
 
 .header__container {
@@ -17,8 +17,9 @@
   justify-content: space-between;
   padding: 0 15px;
   align-items: center;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0px 5px 32px 2px rgba(153,153,153,1);
 }
 
 .header__search {
@@ -29,6 +30,8 @@
   border-bottom-left-radius: 5px;
   background-color: #fff;
   font-size: 16px;
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
 }
 
 .header__search-container {
@@ -52,6 +55,7 @@
   background-color: #e2dbe4;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  cursor: pointer;
 }
 
 .header__current-loc {
@@ -75,15 +79,36 @@
 
 .main__weather {
   display: flex;
-  height: 300px;
-  border-radius: 10px;
+  border-radius: 45px;
+  box-shadow: 0px 10px 32px 2px rgba(153,153,153,1);
   align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 .main__weather-icon {
-  background-image: url("../assets/images/icons8-sun.svg");
+  background-image: url("../assets/images/starry-night.svg");
   display: block;
-  width: 240px;
-  height: 240px;
-  margin-left: 50px;
+  width: 300px;
+  height: 300px;
+}
+
+.main__wather-info{
+  align-self: flex-start;
+}
+
+.main__wather-info-city{
+  margin-top: 40px;
+  font-weight: 800;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+}
+.main__wather-info-city-separator{
+  font-weight: 300;
+  font-size: 55px;
+  opacity: 0.6;
+  margin: 0 5px;
 }
