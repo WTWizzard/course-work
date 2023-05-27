@@ -31,6 +31,27 @@ const checkingCityName = (searchValue = "", responseValue) => {
   return result;
 }
 
+const separateDataByDay = (data) =>{
+  let currentDate = new Date().getDate();
+
+  const tempArray = [];
+
+  const separated = data.reduce((acc, curr) => {
+    console.log(acc);
+    let date = new Date(curr.dt_txt).getDate();
+    if(date === currentDate){
+      tempArray.push(curr);
+    }else{
+      acc.push([...tempArray]);
+      ++currentDate;
+      tempArray.splice(0, tempArray.length)
+      return acc;
+    }
+    return acc;
+  }, [])
+
+  return separated;
+}
 
 const search = async (onload = false) => {
   let result;
@@ -69,7 +90,7 @@ window.onload = async function () {
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
   const POPElement = document.querySelector(".main__wather-info-city-pop");
-  POPElement.innerText = result.list[0].pop * 100;
+  POPElement.innerText = (result.list[0].pop * 100).toFixed(2);
   POPElement.appendChild(POPIcon);
 
   const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
@@ -77,6 +98,8 @@ window.onload = async function () {
 
   cityNameElement.innerText = result.city.name;
   tempElement.innerText = Math.ceil(result.list[0].main.temp);
+
+  const separatedData = separateDataByDay(result.list);
 
 }
 
