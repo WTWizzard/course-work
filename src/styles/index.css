@@ -100,11 +100,11 @@ hr{
   height: 300px;
 }
 
-.main__wather-info{
+.main__weather-info{
   align-self: flex-start;
 }
 
-.main__wather-info-city{
+.main__weather-info-city{
   margin-top: 40px;
   font-weight: 800;
   font-size: 60px;
@@ -114,7 +114,7 @@ hr{
   color: #fff;
   margin-bottom: 20px;
 }
-.main__wather-info-city-separator{
+.main__weather-info-city-separator{
   font-weight: 300;
   font-size: 55px;
   opacity: 0.6;
@@ -135,7 +135,7 @@ hr{
   margin-bottom: 5px;
 }
 
-.main__wather-info-city-pop{
+.main__weather-info-city-pop{
   display: flex;
   align-items: center;
 }
