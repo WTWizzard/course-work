@@ -10,11 +10,10 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
 
   const weatherData = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&cnt=456&appid=${API_KEY}`
-  ).then(res => res.json());
-
+  ).then((res) => res.json());
 
   console.log(weatherData);
-  return weatherData
+  return weatherData;
 };
 
 const checkingCityName = (searchValue = "", responseValue) => {
@@ -24,12 +23,12 @@ const checkingCityName = (searchValue = "", responseValue) => {
     result = responseValue;
     return result;
   }
-  let lowerCaseValue = searchValue.toLowerCase()
-  let firstLetter = lowerCaseValue.charAt(0)
+  let lowerCaseValue = searchValue.toLowerCase();
+  let firstLetter = lowerCaseValue.charAt(0);
   result = lowerCaseValue.replace(firstLetter, firstLetter.toUpperCase());
 
   return result;
-}
+};
 
 const separateDataByDay = (data) => {
   let currentDate = new Date().getDate();
@@ -44,20 +43,35 @@ const separateDataByDay = (data) => {
     } else {
       acc.push([...tempArray]);
       currentDate = date.getDate();
-      tempArray.splice(0, tempArray.length)
+      tempArray.splice(0, tempArray.length);
       return acc;
     }
     return acc;
-  }, [])
+  }, []);
 
   return separated;
-}
+};
+
+const render = (data, searchValue = false) => {
+  const tempElement = document.querySelector(".main__weather-info-city-temperature");
+  const cityNameElement = document.querySelector(".main__weather-info-city-name");
+  const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
+  const POPElement = document.querySelector(".main__weather-info-city-pop");
+  const POPIcon = document.createElement("i");
+  POPIcon.classList.add("main__weather-info-city-pop-i");
+
+  tempElement.innerText = Math.ceil(data.list[0].main.temp);
+  cityNameElement.innerText = searchValue ? checkingCityName(searchPanel.value.split(",")[0], data.city.name) : data.city.name;
+  windSpeedElement.innerText = `Wind speed: ${data.list[0].wind.speed} m/s`;
+  POPElement.innerText = "Probability of Rain: " + (data.list[0].pop * 100).toFixed(2);
+  POPElement.appendChild(POPIcon);
+};
 
 const geoLocationSuccess = (position) => position;
 
 const geoLocationError = (position) => {
   console.log("[Error] Access denied: " + position);
-}
+};
 
 const search = async (onload = false) => {
   let result;
@@ -73,53 +87,30 @@ const search = async (onload = false) => {
     result = await getWeatherData(city, countryCode);
   }
 
-  const tempElement = document.querySelector(".main__weather-info-city-temperature");
-  const cityNameElement = document.querySelector(".main__weather-info-city-name");
-  const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
-  const POPElement = document.querySelector(".main__weather-info-city-pop");
-  const POPIcon = document.createElement("i");
-  POPIcon.classList.add("main__weather-info-city-pop-i");
-
-  cityNameElement.innerText = checkingCityName(searchPanel.value.split(",")[0], result.city.name);
-  tempElement.innerText = Math.ceil(result.list[0].main.temp);
-  windSpeedElement.innerText = `Wind speed: ${result.list[0].wind.speed} m/s`;
-  POPElement.innerText = "Probability of Rain: " + (result.list[0].pop * 100).toFixed(2);
-  POPElement.append(POPIcon);
-}
+  render(result, true);
+};
 
 window.onload = async function () {
-  navigator.geolocation.getCurrentPosition(geoLocationSuccess, geoLocationError);
+  navigator.geolocation.getCurrentPosition(
+    geoLocationSuccess,
+    geoLocationError
+  );
   const result = await getWeatherData();
-  const tempElement = document.querySelector(".main__weather-info-city-temperature");
-  const cityNameElement = document.querySelector(".main__weather-info-city-name");
   const geoLocationLabel = document.querySelector(".header__current-loc-text");
-
   geoLocationLabel.innerText = result.city.name;
 
-  const POPIcon = document.createElement("i");
-  POPIcon.classList.add("main__weather-info-city-pop-i");
-
-  const POPElement = document.querySelector(".main__weather-info-city-pop");
-  POPElement.innerText = "Probability of Rain: " + (result.list[0].pop * 100).toFixed(2);
-  POPElement.appendChild(POPIcon);
-
-  const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
-  windSpeedElement.innerText = `Wind speed: ${result.list[0].wind.speed} m/s`;
-
-  cityNameElement.innerText = result.city.name;
-  tempElement.innerText = Math.ceil(result.list[0].main.temp);
-
-  const separatedData = separateDataByDay(result.list);
+  render(result);
+   
+  const separatedData = separateDataByDay(result.list)
 
   console.log(separatedData);
+};
 
-}
-
-const searchPanel = document.getElementById("search")
-const searchBtn = document.querySelector('.header__search-icon');
+const searchPanel = document.getElementById("search");
+const searchBtn = document.querySelector(".header__search-icon");
 
 searchBtn.addEventListener("click", async (event) => {
-  event.preventDefault()
+  event.preventDefault();
   await search();
 });
 
@@ -127,4 +118,4 @@ searchPanel.addEventListener("keypress", async (event) => {
   if (event.key === "Enter") {
     await search();
   }
-})
+});

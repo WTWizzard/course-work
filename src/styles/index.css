@@ -147,3 +147,17 @@ hr{
   height: 35px;
   margin: -5px;
 }
+
+
+.main__cards{
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-evenly; 
+}
+
+
+.main__cards-item{
+  width: 240px;
+  
+}
