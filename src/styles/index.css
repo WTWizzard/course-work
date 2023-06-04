@@ -148,7 +148,6 @@ hr{
   margin: -5px;
 }
 
-
 .main__cards{
   display: flex;
   padding: 0 10px;
@@ -156,8 +155,8 @@ hr{
   justify-content: space-evenly; 
 }
 
-
 .main__cards-item{
   width: 240px;
-  
+  height: 200px;
+  border-radius: 20px;
 }

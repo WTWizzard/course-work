@@ -52,7 +52,7 @@ const separateDataByDay = (data) => {
   return separated;
 };
 
-const render = (data, searchValue = false) => {
+const renderMainCard = (data, searchValue = false) => {
   const tempElement = document.querySelector(".main__weather-info-city-temperature");
   const cityNameElement = document.querySelector(".main__weather-info-city-name");
   const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
@@ -66,6 +66,52 @@ const render = (data, searchValue = false) => {
   POPElement.innerText = "Probability of Rain: " + (data.list[0].pop * 100).toFixed(2);
   POPElement.appendChild(POPIcon);
 };
+
+const createSecondaryCard = (data) => {
+  const cardItem = document.createElement("div");
+  cardItem.className = ("main__cards-item sky-gradient-13");
+  
+  const cardIcon = document.createElement("i");
+  cardIcon.className = "main__cards-item-icon";
+  
+  const cardInfo = document.createElement("div");
+  cardInfo.className = "main__cards-item-info";
+  
+  const cardDay = document.createElement("p");
+  cardDay.className = "main__cards-item-day";
+
+  const cardTemp = document.createElement("p");
+  cardTemp.className = "main__cards-item-temp";
+
+  const cardTempMin = document.createElement("span");
+  cardTempMin.className = "main__cards-item-day min";
+  cardTempMin.innerText = data[0].main.temp
+
+  const cardTempMax = document.createElement("span");
+  cardTempMax.className = "main__cards-item-day max";
+  
+  cardTemp.append(cardTempMax, cardTempMin);
+  cardInfo.append(cardDay, cardTemp);
+  cardItem.append(cardIcon, cardInfo);
+
+  return cardItem;
+
+}
+
+const renderSecondaryCards = (separatedData) => {
+  const cardWrapper = document.querySelector(".main__cards");
+
+  if (separatedData.length > 0) {
+    for (let i = 0; i < separatedData.length; i++) {
+      const el = createSecondaryCard(separatedData[i]);
+
+      el.id = `${el.classList[0]}-${i}`
+
+      cardWrapper.append(el);
+    }
+
+  }
+}
 
 const geoLocationSuccess = (position) => position;
 
@@ -87,7 +133,7 @@ const search = async (onload = false) => {
     result = await getWeatherData(city, countryCode);
   }
 
-  render(result, true);
+  renderMainCard(result, true);
 };
 
 window.onload = async function () {
@@ -99,11 +145,13 @@ window.onload = async function () {
   const geoLocationLabel = document.querySelector(".header__current-loc-text");
   geoLocationLabel.innerText = result.city.name;
 
-  render(result);
-   
+  renderMainCard(result);
+
   const separatedData = separateDataByDay(result.list)
 
   console.log(separatedData);
+
+  renderSecondaryCards(separatedData)
 };
 
 const searchPanel = document.getElementById("search");
