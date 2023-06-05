@@ -34,13 +34,15 @@ const renderMainCard = (data, searchValue = false) => {
 
 const createSecondaryCard = (data) => {
 
-  const fromattedData = fromattedDataForSecondaryCard(data);
+  const fromattedData = fromatDataForSecondaryCard(data);
+  console.log(fromattedData);
 
   const cardItem = document.createElement("div");
   cardItem.className = ("main__cards-item sky-gradient-13");
   
-  const cardIcon = document.createElement("i");
+  const cardIcon = document.createElement("img");
   cardIcon.className = "main__cards-item-icon";
+  cardIcon.src = `./assets/images/${fromattedData.weatherIcon}`
   
   const cardInfo = document.createElement("div");
   cardInfo.className = "main__cards-item-info";
@@ -69,8 +71,12 @@ const createSecondaryCard = (data) => {
 
 }
 
-const renderSecondaryCards = (separatedData) => {
+const renderSecondaryCards = (separatedData, secondRender = false) => {
   const cardWrapper = document.querySelector(".main__cards");
+
+  if(secondRender){
+    cardWrapper.innerHTML = "";
+  }
 
   if (separatedData.length > 0) {
     for (let i = 0; i < separatedData.length; i++) {
@@ -105,6 +111,12 @@ const search = async (onload = false) => {
   }
 
   renderMainCard(result, true);
+
+  const separatedData = separateDataByDay(result.list)
+
+  console.log(separatedData);
+
+  renderSecondaryCards(separatedData, true)
 };
 
 window.onload = async function () {

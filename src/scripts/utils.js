@@ -1,3 +1,50 @@
+const mistCategory = ["Mist", "Smoke", "Haze", "Fog"];
+const dustCategory = ["Dust", "Sand"];
+const cloudCategory = [
+  "few_clouds",
+  "scattered_clouds",
+  "broken_clouds",
+  "overcast_clouds",
+];
+
+const selectIconByDescription = (weatherObj) => {
+  const weatherCategory = weatherObj.main;
+  const weatherDescription = weatherObj.description;
+  let result = "";
+
+  if (mistCategory.includes(weatherCategory)) {
+    result = "mist.svg";
+    return result;
+  } else if (dustCategory.includes(weatherCategory)) {
+    result = "dust.svg";
+    return result;
+  } else {
+  }
+
+  switch (weatherCategory) {
+    case "Rain":
+      result = "rain.svg";
+      break;
+    case "Snow":
+      result = "snow.svg";
+      break;
+    case "Thunderstorm":
+      result = "thunder.svg";
+    case "Drizzle":
+      result = "drizzle.svg";
+      break;
+    case "Clouds":
+      result = cloudCategory.find((desc) => {
+          return desc.split("_").join(" ") === weatherDescription;
+        }) + ".svg";
+      break;
+    default:
+      result = "clear-day.svg";
+      break;
+  }
+  return result;
+};
+
 const findMostFrequentElement = (arr) => {
   let occurrences = {};
   // Iterate through the array and count the occurrences
@@ -27,18 +74,20 @@ const findMostFrequentElement = (arr) => {
   return maxElement;
 };
 
-const fromattedDataForSecondaryCard = (data) => {
+const fromatDataForSecondaryCard = (data) => {
   const temperatureArray = data.map((item) => item.main.temp);
   const date = new Date(data[0].dt_txt);
 
   const minTemp = Math.min(...temperatureArray);
   const maxTemp = Math.max(...temperatureArray);
   const mainWeatherOfTheDay = findMostFrequentElement(data);
+  const weatherIcon = selectIconByDescription(mainWeatherOfTheDay);
   const dayOfTheWeek = date.toString().split(" ")[0];
 
   return {
     dayOfTheWeek,
     mainWeatherOfTheDay,
+    weatherIcon,
     maxTemp,
     minTemp,
   };
