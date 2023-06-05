@@ -25,7 +25,7 @@ const renderMainCard = (data, searchValue = false) => {
   const POPIcon = document.createElement("i");
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
-  tempElement.innerText = Math.ceil(data.list[0].main.temp);
+  tempElement.innerText = Math.ceil(data.list[0].main.temp) + "°";
   cityNameElement.innerText = searchValue ? checkingCityName(searchPanel.value.split(",")[0], data.city.name) : data.city.name;
   windSpeedElement.innerText = `Wind speed: ${data.list[0].wind.speed} m/s`;
   POPElement.innerText = "Probability of Rain: " + (data.list[0].pop * 100).toFixed(2);
@@ -55,12 +55,12 @@ const createSecondaryCard = (data) => {
   cardTemp.className = "main__cards-item-temp";
 
   const cardTempMin = document.createElement("span");
-  cardTempMin.className = "main__cards-item-day min";
-  cardTempMin.innerText = Math.ceil(fromattedData.minTemp);
+  cardTempMin.className = "main__cards-item-temp min";
+  cardTempMin.innerText = Math.ceil(fromattedData.minTemp) + "°";
 
   const cardTempMax = document.createElement("span");
-  cardTempMax.className = "main__cards-item-day max";
-  cardTempMax.innerText = Math.ceil(fromattedData.maxTemp);
+  cardTempMax.className = "main__cards-item-temp max";
+  cardTempMax.innerText = Math.ceil(fromattedData.maxTemp) + "°";
   
   cardTemp.append(cardTempMax, cardTempMin);
   cardInfo.append(cardDay, cardTemp);

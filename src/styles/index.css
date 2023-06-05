@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-hr{
+hr {
   background-color: #fff;
   opacity: 0.5;
   margin-bottom: 20px;
@@ -25,7 +25,7 @@ hr{
   align-items: center;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  box-shadow: 0px 5px 32px 2px rgba(153,153,153,1);
+  box-shadow: 0px 5px 32px 2px rgba(153, 153, 153, 1);
 }
 
 .header__search {
@@ -87,10 +87,11 @@ hr{
 .main__weather {
   display: flex;
   border-radius: 45px;
-  box-shadow: 0px 10px 32px 2px rgba(153,153,153,1);
+  box-shadow: 0px 10px 32px 2px rgba(153, 153, 153, 1);
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  margin-bottom: 20px;
 }
 
 .main__weather-icon {
@@ -100,11 +101,11 @@ hr{
   height: 300px;
 }
 
-.main__weather-info{
+.main__weather-info {
   align-self: flex-start;
 }
 
-.main__weather-info-city{
+.main__weather-info-city {
   margin-top: 40px;
   font-weight: 800;
   font-size: 60px;
@@ -114,14 +115,14 @@ hr{
   color: #fff;
   margin-bottom: 20px;
 }
-.main__weather-info-city-separator{
+.main__weather-info-city-separator {
   font-weight: 300;
   font-size: 55px;
   opacity: 0.6;
   margin: 0 5px;
 }
 
-.main__weather-info-city-details{
+.main__weather-info-city-details {
   font-size: 16px;
   display: flex;
   justify-content: flex-end;
@@ -135,12 +136,12 @@ hr{
   margin-bottom: 5px;
 }
 
-.main__weather-info-city-pop{
+.main__weather-info-city-pop {
   display: flex;
   align-items: center;
 }
 
-.main__weather-info-city-pop-i{
+.main__weather-info-city-pop-i {
   background-image: url("../assets/images/pop-icon.svg");
   display: block;
   width: 35px;
@@ -148,15 +149,40 @@ hr{
   margin: -5px;
 }
 
-.main__cards{
+.main__cards {
   display: flex;
   padding: 0 10px;
   align-items: center;
-  justify-content: space-evenly; 
+  justify-content: space-evenly;
 }
 
-.main__cards-item{
-  width: 240px;
-  height: 200px;
+.main__cards-item {
+  width: fit-content;
+  padding: 20px;
   border-radius: 20px;
+  box-shadow: 12px 18px 46px -27px rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+
+.main__cards-item-icon {
+  width: 120px;
+  height: 120px;
+}
+
+.main__cards-item-day {
+  font-weight: 700;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.main__cards-item-temp {
+  font-weight: 400;
+  display: flex;
+}
+
+.main__cards-item-temp.max{
+  margin-right: 5px;
+}
+.main__cards-item-temp.min{
+  opacity: 0.8;
 }
