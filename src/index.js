@@ -16,41 +16,6 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
   return weatherData;
 };
 
-const checkingCityName = (searchValue = "", responseValue) => {
-  let result;
-
-  if (searchValue.toLocaleLowerCase() === responseValue.toLocaleLowerCase()) {
-    result = responseValue;
-    return result;
-  }
-  let lowerCaseValue = searchValue.toLowerCase();
-  let firstLetter = lowerCaseValue.charAt(0);
-  result = lowerCaseValue.replace(firstLetter, firstLetter.toUpperCase());
-
-  return result;
-};
-
-const separateDataByDay = (data) => {
-  let currentDate = new Date().getDate();
-
-  const tempArray = [];
-
-  const separated = data.reduce((acc, curr) => {
-    let date = new Date(curr.dt_txt);
-
-    if (date.getDate() === currentDate) {
-      tempArray.push(curr);
-    } else {
-      acc.push([...tempArray]);
-      currentDate = date.getDate();
-      tempArray.splice(0, tempArray.length);
-      return acc;
-    }
-    return acc;
-  }, []);
-
-  return separated;
-};
 
 const renderMainCard = (data, searchValue = false) => {
   const tempElement = document.querySelector(".main__weather-info-city-temperature");
@@ -68,6 +33,9 @@ const renderMainCard = (data, searchValue = false) => {
 };
 
 const createSecondaryCard = (data) => {
+
+  const fromattedData = fromattedDataForSecondaryCard(data);
+
   const cardItem = document.createElement("div");
   cardItem.className = ("main__cards-item sky-gradient-13");
   
@@ -79,21 +47,24 @@ const createSecondaryCard = (data) => {
   
   const cardDay = document.createElement("p");
   cardDay.className = "main__cards-item-day";
+  cardDay.innerText = fromattedData.dayOfTheWeek;
 
   const cardTemp = document.createElement("p");
   cardTemp.className = "main__cards-item-temp";
 
   const cardTempMin = document.createElement("span");
   cardTempMin.className = "main__cards-item-day min";
-  cardTempMin.innerText = data[0].main.temp
+  cardTempMin.innerText = Math.ceil(fromattedData.minTemp);
 
   const cardTempMax = document.createElement("span");
   cardTempMax.className = "main__cards-item-day max";
+  cardTempMax.innerText = Math.ceil(fromattedData.maxTemp);
   
   cardTemp.append(cardTempMax, cardTempMin);
   cardInfo.append(cardDay, cardTemp);
   cardItem.append(cardIcon, cardInfo);
 
+  
   return cardItem;
 
 }
