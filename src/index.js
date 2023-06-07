@@ -16,37 +16,44 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
   return weatherData;
 };
 
-
 const renderMainCard = (data, searchValue = false) => {
-  const tempElement = document.querySelector(".main__weather-info-city-temperature");
-  const cityNameElement = document.querySelector(".main__weather-info-city-name");
-  const windSpeedElement = document.querySelector(".main__weather-info-city-wind");
+  const tempElement = document.querySelector(
+    ".main__weather-info-city-temperature"
+  );
+  const cityNameElement = document.querySelector(
+    ".main__weather-info-city-name"
+  );
+  const windSpeedElement = document.querySelector(
+    ".main__weather-info-city-wind"
+  );
   const POPElement = document.querySelector(".main__weather-info-city-pop");
   const POPIcon = document.createElement("i");
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
   tempElement.innerText = Math.ceil(data.list[0].main.temp) + "°";
-  cityNameElement.innerText = searchValue ? checkingCityName(searchPanel.value.split(",")[0], data.city.name) : data.city.name;
+  cityNameElement.innerText = searchValue
+    ? checkingCityName(searchPanel.value.split(",")[0], data.city.name)
+    : data.city.name;
   windSpeedElement.innerText = `Wind speed: ${data.list[0].wind.speed} m/s`;
-  POPElement.innerText = "Probability of Rain: " + (data.list[0].pop * 100).toFixed(2);
+  POPElement.innerText =
+    "Probability of Rain: " + (data.list[0].pop * 100).toFixed(2);
   POPElement.appendChild(POPIcon);
 };
 
 const createSecondaryCard = (data) => {
-
   const fromattedData = fromatDataForSecondaryCard(data);
   console.log(fromattedData);
 
   const cardItem = document.createElement("div");
-  cardItem.className = ("main__cards-item sky-gradient-13");
-  
+  cardItem.className = "main__cards-item sky-gradient-13";
+
   const cardIcon = document.createElement("img");
   cardIcon.className = "main__cards-item-icon";
-  cardIcon.src = `./assets/images/${fromattedData.weatherIcon}`
-  
+  cardIcon.src = `./assets/images/${fromattedData.weatherIcon}`;
+
   const cardInfo = document.createElement("div");
   cardInfo.className = "main__cards-item-info";
-  
+
   const cardDay = document.createElement("p");
   cardDay.className = "main__cards-item-day";
   cardDay.innerText = fromattedData.dayOfTheWeek;
@@ -61,20 +68,18 @@ const createSecondaryCard = (data) => {
   const cardTempMax = document.createElement("span");
   cardTempMax.className = "main__cards-item-temp max";
   cardTempMax.innerText = Math.ceil(fromattedData.maxTemp) + "°";
-  
+
   cardTemp.append(cardTempMax, cardTempMin);
   cardInfo.append(cardDay, cardTemp);
   cardItem.append(cardIcon, cardInfo);
 
-  
   return cardItem;
-
-}
+};
 
 const renderSecondaryCards = (separatedData, secondRender = false) => {
   const cardWrapper = document.querySelector(".main__cards");
 
-  if(secondRender){
+  if (secondRender) {
     cardWrapper.innerHTML = "";
   }
 
@@ -82,13 +87,12 @@ const renderSecondaryCards = (separatedData, secondRender = false) => {
     for (let i = 0; i < separatedData.length; i++) {
       const el = createSecondaryCard(separatedData[i]);
 
-      el.id = `${el.classList[0]}-${i}`
+      el.id = `${el.classList[0]}-${i}`;
 
       cardWrapper.append(el);
     }
-
   }
-}
+};
 
 const geoLocationSuccess = (position) => position;
 
@@ -96,27 +100,23 @@ const geoLocationError = (position) => {
   console.log("[Error] Access denied: " + position);
 };
 
-const search = async (onload = false) => {
+const search = async () => {
   let result;
 
-  if (onload) {
-    result = await getWeatherData();
-  } else {
-    const [city, countryCode] = searchPanel.value.split(",");
-    if (!countryCode) {
-      alert("Please add country code after city name, and separate by comma");
-      return null;
-    }
-    result = await getWeatherData(city, countryCode);
+  const [city, countryCode] = searchPanel.value.split(",");
+  if (!countryCode) {
+    alert("Please add country code after city name, and separate by comma");
+    return null;
   }
+  result = await getWeatherData(city, countryCode);
 
   renderMainCard(result, true);
 
-  const separatedData = separateDataByDay(result.list)
+  const separatedData = separateDataByDay(result.list);
 
   console.log(separatedData);
 
-  renderSecondaryCards(separatedData, true)
+  renderSecondaryCards(separatedData, true);
 };
 
 window.onload = async function () {
@@ -128,13 +128,13 @@ window.onload = async function () {
   const geoLocationLabel = document.querySelector(".header__current-loc-text");
   geoLocationLabel.innerText = result.city.name;
 
+  
+  const separatedData = separateDataByDay(result.list);
+  
   renderMainCard(result);
-
-  const separatedData = separateDataByDay(result.list)
-
   console.log(separatedData);
 
-  renderSecondaryCards(separatedData)
+  renderSecondaryCards(separatedData);
 };
 
 const searchPanel = document.getElementById("search");

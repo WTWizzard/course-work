@@ -154,6 +154,7 @@ hr {
   padding: 0 10px;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .main__cards-item {
@@ -162,6 +163,7 @@ hr {
   border-radius: 20px;
   box-shadow: 12px 18px 46px -27px rgba(0, 0, 0, 0.75);
   color: #fff;
+  margin: 10px;
 }
 
 .main__cards-item-icon {
