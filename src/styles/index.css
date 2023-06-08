@@ -18,7 +18,7 @@ hr {
 
 .header__container {
   height: 80px;
-  background-color: #4c3484;
+  /* background-color: #4c3484; */
   display: flex;
   justify-content: space-between;
   padding: 0 15px;
@@ -65,19 +65,15 @@ hr {
   cursor: pointer;
 }
 
-.header__current-loc {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.header__logo{
   color: #fff;
-  height: 30px;
-  background-color: #00c9a5;
-  padding: 10px;
-  border-radius: 5px;
+  font-weight: 700;
+  font-size: 30px;
+  text-transform: uppercase;
 }
 
-.header__current-loc-icon {
-  margin-right: 5px;
+a {
+  text-decoration: none;
 }
 
 .header {
@@ -92,13 +88,6 @@ hr {
   justify-content: space-between;
   padding: 0 20px;
   margin-bottom: 20px;
-}
-
-.main__weather-icon {
-  background-image: url("../assets/images/clear-night.svg");
-  display: block;
-  width: 300px;
-  height: 300px;
 }
 
 .main__weather-info {
@@ -164,6 +153,7 @@ hr {
   box-shadow: 12px 18px 46px -27px rgba(0, 0, 0, 0.75);
   color: #fff;
   margin: 10px;
+  cursor: pointer;
 }
 
 .main__cards-item-icon {
@@ -182,9 +172,9 @@ hr {
   display: flex;
 }
 
-.main__cards-item-temp.max{
+.main__cards-item-temp.max {
   margin-right: 5px;
 }
-.main__cards-item-temp.min{
+.main__cards-item-temp.min {
   opacity: 0.8;
 }

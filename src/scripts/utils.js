@@ -18,7 +18,6 @@ const selectIconByDescription = (weatherObj) => {
   } else if (dustCategory.includes(weatherCategory)) {
     result = "dust.svg";
     return result;
-  } else {
   }
 
   switch (weatherCategory) {
@@ -34,15 +33,36 @@ const selectIconByDescription = (weatherObj) => {
       result = "drizzle.svg";
       break;
     case "Clouds":
-      result = cloudCategory.find((desc) => {
+      result =
+        cloudCategory.find((desc) => {
           return desc.split("_").join(" ") === weatherDescription;
         }) + ".svg";
       break;
     default:
-      result = "clear-day.svg";
+      result = "clear.svg";
       break;
   }
   return result;
+};
+
+const checkIsThisDay = (cityData, cardData) => {
+  const cardTime = new Date(cardData.dt * 1000);
+
+  const cardTime_m = cardTime.getHours() * 60 + cardTime.getMinutes();
+
+  const sunset = new Date(cityData.sunset * 1000);
+  const sunrise = new Date(cityData.sunrise * 1000);
+
+  const sunrise_m = sunrise.getHours() * 60 + sunrise.getMinutes();
+  const sunset_m = sunset.getHours() * 60 + sunset.getMinutes();
+
+  if (cardTime_m > sunrise_m + 60 && now_m <= sunset_m - 60) {
+    console.log("day");
+  } else {
+    console.log("night");
+  }
+
+  return cardTime_m > sunrise_m + 60 && now_m <= sunset_m - 60;
 };
 
 const findMostFrequentElement = (arr) => {
