@@ -26,8 +26,14 @@ const renderMainCard = (data, searchValue = false, city) => {
   mainIcon.setAttribute("height", "300px");
   mainIcon.setAttribute(
     "src",
-    `./assets/images/${isDay ? imageName : "n-" + imageName}`
+    `./assets/images/${
+      isDay || imageName === "mist.svg" || imageName === "dust.svg"
+        ? imageName
+        : "n-" + imageName
+    }`
   );
+
+  const timeElement = document.querySelector(".main__weather-info-time");
 
   const tempElement = document.querySelector(
     ".main__weather-info-city-temperature"
@@ -41,10 +47,16 @@ const renderMainCard = (data, searchValue = false, city) => {
   const humidityElement = document.querySelector(
     ".main__weather-info-city-humidity"
   );
+  const sunriseTime = document.querySelector(".sunrise-time");
+  const sunsetTime = document.querySelector(".sunset-time");
   const POPElement = document.querySelector(".main__weather-info-city-pop");
   const POPIcon = document.createElement("i");
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
+  sunriseTime.innerText = splitTime(city.sunrise);
+  sunsetTime.innerText = splitTime(city.sunset);
+
+  timeElement.innerText = new Date(data[0].dt_txt).toString().slice(0,21);
   tempElement.innerText = Math.ceil(data[0].main.temp) + "°";
   cityNameElement.innerText = searchValue
     ? checkingCityName(searchPanel.value.split(",")[0], city.name)

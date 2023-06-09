@@ -56,14 +56,19 @@ const checkIsThisDay = (cityData, cardData) => {
   const sunrise_m = sunrise.getHours() * 60 + sunrise.getMinutes();
   const sunset_m = sunset.getHours() * 60 + sunset.getMinutes();
 
-  if (cardTime_m > sunrise_m + 60 && now_m <= sunset_m - 60) {
+  if (cardTime_m > sunrise_m + 60 && cardTime_m <= sunset_m - 60) {
     console.log("day");
   } else {
     console.log("night");
   }
 
-  return cardTime_m > sunrise_m + 60 && now_m <= sunset_m - 60;
+  return cardTime_m > sunrise_m + 60 && cardTime_m <= sunset_m - 60;
 };
+
+
+const splitTime = (time) =>{
+  return new Date(time*1000).toString().split(" ")[4].slice(0,5);
+}
 
 const findMostFrequentElement = (arr) => {
   let occurrences = {};
@@ -123,7 +128,7 @@ const separateDataByDay = (data) => {
 
     if (date.getDate() === currentDate) {
       tempArray.push(curr);
-    } else {
+    } else {  
       acc.push([...tempArray]);
       currentDate = date.getDate();
       tempArray.splice(0, tempArray.length);
