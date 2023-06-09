@@ -42,7 +42,6 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <!-- Main CSS Styles -->
     <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="stylesheet" href="./styles/skyGradient.css" />
     <title>Курсова</title>
   </head>
   <body>
@@ -82,7 +81,7 @@
               <p class="main__weather-info-city-wind details"></p>
               <p class="main__weather-info-city-pop details"></p>
               <p class="main__weather-info-city-humidity details"></p>
-              <hr/>
+              <hr />
               <div class="main__weather-info-city-sun details">
                 <div class="sunrise sun-item">
                   <p class="sunise-title">Sunrise:</p>
@@ -101,8 +100,30 @@
         <section class="main__cards"></section>
       </div>
     </main>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <div class="wrapper">
+        <div class="footer__container sky-gradient-04">
+          <section class="footer__contacts">
+            <p>
+              Email:
+              <a href="mailto:faringar35@gmail.com">faringar35@gmail.com</a>
+            </p>
+            <p>Phone: <a href="tel:+380937043092">+380(93)704-3092</a></p>
+            <p>Socials: </p>
+            <a target="_blank" href="https://www.linkedin.com/in/vitalii-suvorov-23a075233/" class="socials"><img src="./assets/images/linkedin.png" alt="linkedin" /></a>
+            <a target="_blank" href="https://github.com/WTWizzard" class="socials"><img src="./assets/images/github.png" alt="github" /></a>
+            <a target="_blank" href="https://t.me/@WTWizzard" class="socials"><img src="./assets/images/telegram.png" alt="telegram" /></a>
+          </section>
+          <section class="footer__rights">
+            <p class="rights">Icons provided by: </p>
+            <a href="https://github.com/basmilius/weather-icons" class="icons-link"><img src="./assets/images/brand-01.svg" alt="icons" width="250px" height="150px"></a>
+          </section>
+        </div>
+      </div>
+    </footer>
     <script src="./scripts/utils.js"></script>
+    <script src="./scripts/renderGraph.js"></script>
+    <script src="./scripts/renderSecCards.js"></script>
     <script src="./index.js"></script>
   </body>
 </html>

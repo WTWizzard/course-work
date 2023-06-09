@@ -67,7 +67,7 @@ const checkIsThisDay = (cityData, cardData) => {
 
 
 const splitTime = (time) =>{
-  return new Date(time*1000).toString().split(" ")[4].slice(0,5);
+  return new Date(typeof time === 'number' ? time * 1000 : time).toString().split(" ")[4].slice(0,5);
 }
 
 const findMostFrequentElement = (arr) => {

@@ -16,10 +16,10 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
   return weatherData;
 };
 
-const renderMainCard = (data, searchValue = false, city) => {
-  const isDay = checkIsThisDay(city, data[0]);
+const renderMainCard = (data, searchValue = false, city, isClicked = false, index = 0) => {
+  const isDay = checkIsThisDay(city, data[index]);
 
-  const imageName = selectIconByDescription(data[0].weather[0]);
+  const imageName = selectIconByDescription(data[index].weather[0]);
 
   const mainIcon = document.querySelector(".main__weather-icon");
   mainIcon.setAttribute("width", "300px");
@@ -51,18 +51,30 @@ const renderMainCard = (data, searchValue = false, city) => {
   const sunsetTime = document.querySelector(".sunset-time");
   const POPElement = document.querySelector(".main__weather-info-city-pop");
   const POPIcon = document.createElement("i");
+
+  renderGraph(data, isClicked);
+
+  const graphsItems = document.querySelectorAll(".graph-item");
+  
+  graphsItems.forEach((element, index) => {
+    element.addEventListener("click", () => {
+      renderMainCard(data, searchValue, city, true, index);
+    });
+  });
+
+
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
   sunriseTime.innerText = splitTime(city.sunrise);
   sunsetTime.innerText = splitTime(city.sunset);
 
-  timeElement.innerText = new Date(data[0].dt_txt).toString().slice(0,21);
-  tempElement.innerText = Math.ceil(data[0].main.temp) + "°";
+  timeElement.innerText = new Date(data[index].dt_txt).toString().slice(0, 21);
+  tempElement.innerText = Math.ceil(data[index].main.temp) + "°";
   cityNameElement.innerText = searchValue
     ? checkingCityName(searchPanel.value.split(",")[0], city.name)
     : city.name;
-  windSpeedElement.innerText = `Wind speed: ${data[0].wind.speed} m/s`;
-  humidityElement.innerText = `Humidity level: ${data[0].main.humidity} %`;
+  windSpeedElement.innerText = `Wind speed: ${data[index].wind.speed} m/s`;
+  humidityElement.innerText = `Humidity level: ${data[index].main.humidity} %`;
   POPElement.innerText =
     "Probability of Rain: " + (data[0].pop * 100).toFixed(2);
   POPElement.appendChild(POPIcon);
@@ -70,59 +82,6 @@ const renderMainCard = (data, searchValue = false, city) => {
   console.log("render");
 };
 
-const createSecondaryCard = (data) => {
-  const fromattedData = fromatDataForSecondaryCard(data);
-  console.log(fromattedData);
-
-  const cardItem = document.createElement("div");
-  cardItem.className = "main__cards-item sky-gradient-13";
-
-  const cardIcon = document.createElement("img");
-  cardIcon.className = "main__cards-item-icon";
-  cardIcon.src = `./assets/images/${fromattedData.weatherIcon}`;
-
-  const cardInfo = document.createElement("div");
-  cardInfo.className = "main__cards-item-info";
-
-  const cardDay = document.createElement("p");
-  cardDay.className = "main__cards-item-day";
-  cardDay.innerText = fromattedData.dayOfTheWeek;
-
-  const cardTemp = document.createElement("p");
-  cardTemp.className = "main__cards-item-temp";
-
-  const cardTempMin = document.createElement("span");
-  cardTempMin.className = "main__cards-item-temp min";
-  cardTempMin.innerText = Math.ceil(fromattedData.minTemp) + "°";
-
-  const cardTempMax = document.createElement("span");
-  cardTempMax.className = "main__cards-item-temp max";
-  cardTempMax.innerText = Math.ceil(fromattedData.maxTemp) + "°";
-
-  cardTemp.append(cardTempMax, cardTempMin);
-  cardInfo.append(cardDay, cardTemp);
-  cardItem.append(cardIcon, cardInfo);
-
-  return cardItem;
-};
-
-const renderSecondaryCards = (separatedData, secondRender = false) => {
-  const cardWrapper = document.querySelector(".main__cards");
-
-  if (secondRender) {
-    cardWrapper.innerHTML = "";
-  }
-
-  if (separatedData.length > 0) {
-    for (let i = 0; i < separatedData.length; i++) {
-      const el = createSecondaryCard(separatedData[i]);
-
-      el.id = `${el.classList[0]}-${i}`;
-
-      cardWrapper.append(el);
-    }
-  }
-};
 
 const search = async () => {
   let result;
@@ -136,7 +95,7 @@ const search = async () => {
 
   const separatedData = separateDataByDay(result.list);
 
-  renderMainCard(separatedData[0], true, result.city);
+  renderMainCard(separatedData[0], true, result.city, true);
 
   console.log(separatedData);
 
@@ -146,7 +105,7 @@ const search = async () => {
 
   cardItems.forEach((element, index) => {
     element.addEventListener("click", () => {
-      renderMainCard(separatedData[index], true, result.city);
+      renderMainCard(separatedData[index], true, result.city, true);
     });
   });
 };
@@ -165,7 +124,7 @@ window.onload = async function () {
 
   cardItems.forEach((element, index) => {
     element.addEventListener("click", () => {
-      renderMainCard(separatedData[index], false, result.city);
+      renderMainCard(separatedData[index], false, result.city, true);
     });
   });
 };
