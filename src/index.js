@@ -16,7 +16,13 @@ const getWeatherData = async (name = "Odesa", countryCode = "UA") => {
   return weatherData;
 };
 
-const renderMainCard = (data, searchValue = false, city, isClicked = false, index = 0) => {
+const renderMainCard = (
+  data,
+  searchValue = false,
+  city,
+  isClicked = false,
+  index = 0
+) => {
   const isDay = checkIsThisDay(city, data[index]);
 
   const imageName = selectIconByDescription(data[index].weather[0]);
@@ -55,13 +61,12 @@ const renderMainCard = (data, searchValue = false, city, isClicked = false, inde
   renderGraph(data, isClicked);
 
   const graphsItems = document.querySelectorAll(".graph-item");
-  
+
   graphsItems.forEach((element, index) => {
     element.addEventListener("click", () => {
       renderMainCard(data, searchValue, city, true, index);
     });
   });
-
 
   POPIcon.classList.add("main__weather-info-city-pop-i");
 
@@ -82,16 +87,13 @@ const renderMainCard = (data, searchValue = false, city, isClicked = false, inde
   console.log("render");
 };
 
-
 const search = async () => {
-  let result;
-
   const [city, countryCode] = searchPanel.value.split(",");
   if (!countryCode) {
     alert("Please add country code after city name, and separate by comma");
     return null;
   }
-  result = await getWeatherData(city, countryCode);
+  const result = await getWeatherData(city, countryCode);
 
   const separatedData = separateDataByDay(result.list);
 

@@ -65,10 +65,12 @@ const checkIsThisDay = (cityData, cardData) => {
   return cardTime_m > sunrise_m + 60 && cardTime_m <= sunset_m - 60;
 };
 
-
-const splitTime = (time) =>{
-  return new Date(typeof time === 'number' ? time * 1000 : time).toString().split(" ")[4].slice(0,5);
-}
+const splitTime = (time) => {
+  return new Date(typeof time === "number" ? time * 1000 : time)
+    .toString()
+    .split(" ")[4]
+    .slice(0, 5);
+};
 
 const findMostFrequentElement = (arr) => {
   let occurrences = {};
@@ -128,7 +130,7 @@ const separateDataByDay = (data) => {
 
     if (date.getDate() === currentDate) {
       tempArray.push(curr);
-    } else {  
+    } else {
       acc.push([...tempArray]);
       currentDate = date.getDate();
       tempArray.splice(0, tempArray.length);
